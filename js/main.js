@@ -31,10 +31,10 @@ var sprites = require('./spriteInfo');
 var pixelsPerMetre = 18;
 var distanceTravelledInMetres = 0;
 var monsterDistanceThreshold = 2000;
-var livesLeft = 5;
+var livesLeft = 1;
 var highScore = 0;
 var loseLifeOnObstacleHit = false;
-var dropRates = {smallTree: 4, tallTree: 2, jump: 1, thickSnow: 1, rock: 1};
+var dropRates = {smallTree: 6, tallTree: 4, jump: 1, thickSnow: 1, rock: 10};
 if (localStorage.getItem('highScore')) highScore = localStorage.getItem('highScore');
 
 function loadImages (sources, next) {
@@ -142,7 +142,7 @@ function startNeverEndingGame (images) {
 
 	infoBox = new InfoBox({
 		initialLines : [
-			'SkiFree.js',
+			'SkiFree // CRITEO',
 			infoBoxControls,
 			'Travelled 0m',
 			'High Score: ' + highScore,
@@ -183,7 +183,7 @@ function startNeverEndingGame (images) {
 			}
 
 			infoBox.setLines([
-				'SkiFree.js',
+				'SkiFree // CRITEO',
 				infoBoxControls,
 				'Travelled ' + distanceTravelledInMetres + 'm',
 				'Skiers left: ' + livesLeft,
@@ -204,20 +204,20 @@ function startNeverEndingGame (images) {
 
 	game.addUIElement(infoBox);
 	
-	$(mainCanvas)
-	.mousemove(function (e) {
-		game.setMouseX(e.pageX);
-		game.setMouseY(e.pageY);
-		player.resetDirection();
-		player.startMovingIfPossible();
-	})
-	.bind('click', function (e) {
-		game.setMouseX(e.pageX);
-		game.setMouseY(e.pageY);
-		player.resetDirection();
-		player.startMovingIfPossible();
-	})
-	.focus(); // So we can listen to events immediately
+	// $(mainCanvas)
+	// .mousemove(function (e) {
+	// 	game.setMouseX(e.pageX);
+	// 	game.setMouseY(e.pageY);
+	// 	player.resetDirection();
+	// 	player.startMovingIfPossible();
+	// })
+	// .bind('click', function (e) {
+	// 	game.setMouseX(e.pageX);
+	// 	game.setMouseY(e.pageY);
+	// 	player.resetDirection();
+	// 	player.startMovingIfPossible();
+	// })
+	// .focus(); // So we can listen to events immediately
 
 	Mousetrap.bind('f', player.speedBoost);
 	Mousetrap.bind('t', player.attemptTrick);
@@ -246,21 +246,21 @@ function startNeverEndingGame (images) {
 	Mousetrap.bind('b', spawnBoarder);
 	Mousetrap.bind('space', resetGame);
 
-	var hammertime = Hammer(mainCanvas).on('press', function (e) {
-		e.preventDefault();
-		game.setMouseX(e.gesture.center.x);
-		game.setMouseY(e.gesture.center.y);
-	}).on('tap', function (e) {
-		game.setMouseX(e.gesture.center.x);
-		game.setMouseY(e.gesture.center.y);
-	}).on('pan', function (e) {
-		game.setMouseX(e.gesture.center.x);
-		game.setMouseY(e.gesture.center.y);
-		player.resetDirection();
-		player.startMovingIfPossible();
-	}).on('doubletap', function (e) {
-		player.speedBoost();
-	});
+	// var hammertime = Hammer(mainCanvas).on('press', function (e) {
+	// 	e.preventDefault();
+	// 	game.setMouseX(e.gesture.center.x);
+	// 	game.setMouseY(e.gesture.center.y);
+	// }).on('tap', function (e) {
+	// 	game.setMouseX(e.gesture.center.x);
+	// 	game.setMouseY(e.gesture.center.y);
+	// }).on('pan', function (e) {
+	// 	game.setMouseX(e.gesture.center.x);
+	// 	game.setMouseY(e.gesture.center.y);
+	// 	player.resetDirection();
+	// 	player.startMovingIfPossible();
+	// }).on('doubletap', function (e) {
+	// 	player.speedBoost();
+	// });
 
 	player.isMoving = false;
 	player.setDirection(270);
